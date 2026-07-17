@@ -32,8 +32,10 @@ def get_base64_of_bin_file(bin_file):
     return base64.b64encode(data).decode()
 
 def set_backgrounds():
-    sidebar_bg = r"C:\Users\Shivam\.gemini\antigravity-ide\brain\7aafba30-0824-4f46-aeba-52c04aab38e8\sidebar_bg_1784198232120.png"
-    main_bg = r"C:\Users\Shivam\.gemini\antigravity-ide\brain\7aafba30-0824-4f46-aeba-52c04aab38e8\main_bg_1784198241342.png"
+    import os
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    sidebar_bg = os.path.join(current_dir, "sidebar_bg.png")
+    main_bg = os.path.join(current_dir, "main_bg.png")
     
     try:
         sidebar_base64 = get_base64_of_bin_file(sidebar_bg)
@@ -41,36 +43,36 @@ def set_backgrounds():
         
         custom_css = f'''
         <style>
-        [data-testid="stAppViewContainer"] {{
-            background-image: url("data:image/png;base64,{main_base64}");
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
+        [data-testid="stAppViewContainer"], [data-testid="stApp"] {{
+            background-image: url("data:image/png;base64,{main_base64}") !important;
+            background-size: cover !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+            background-attachment: fixed !important;
         }}
-        [data-testid="stSidebar"] {{
-            background-image: url("data:image/png;base64,{sidebar_base64}");
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
+        [data-testid="stSidebar"] > div:first-child, [data-testid="stSidebar"] {{
+            background-image: url("data:image/png;base64,{sidebar_base64}") !important;
+            background-size: cover !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+            background-attachment: fixed !important;
         }}
         [data-testid="stHeader"] {{
-            background: rgba(0,0,0,0);
+            background: rgba(0,0,0,0) !important;
         }}
         /* Add a subtle dark overlay to the main content area for better text readability */
         .block-container {{
-            background-color: rgba(14, 17, 23, 0.85);
-            border-radius: 15px;
+            background-color: rgba(14, 17, 23, 0.85) !important;
+            border-radius: 15px !important;
             padding: 2rem !important;
-            margin-top: 1rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            margin-top: 1rem !important;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3) !important;
         }}
         </style>
         '''
         st.markdown(custom_css, unsafe_allow_html=True)
     except Exception as e:
-        pass
+        st.error(f"Could not load background images. Please ensure 'sidebar_bg.png' and 'main_bg.png' are uploaded to your repository in the same folder as app.py. Error details: {e}")
 
 set_backgrounds()
 
