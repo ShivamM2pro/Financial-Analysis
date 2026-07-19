@@ -61,6 +61,8 @@ def fetch_data(start_date, end_date):
     def cleanse(df):
         if df.empty: return df
         df = df[~df.index.duplicated(keep='first')]
+        # Exclude redundant weekend days (Saturday=5, Sunday=6)
+        df = df[df.index.dayofweek < 5]
         df.sort_index(inplace=True)
         df.ffill(inplace=True)
         df.bfill(inplace=True)
