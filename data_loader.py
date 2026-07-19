@@ -11,6 +11,7 @@ TICKERS = {
     "SP_500": "^GSPC",
     "NIKKEI_225": "^N225",
     "FTSE_100": "^FTSE",
+    "SHANGHAI": "000001.SS",
     "GOLD": "GC=F",
     "CRUDE_OIL": "CL=F",
 }
